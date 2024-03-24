@@ -12,6 +12,8 @@ class MovieItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      bottom: true,
+      top: true,
       child: Column(
         children: [
           Card(
