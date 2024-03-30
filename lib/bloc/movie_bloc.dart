@@ -1,8 +1,9 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:http/http.dart' as http;
-import 'package:movie_quiz_bloc/model/poster.dart';
-import 'package:movie_quiz_bloc/model/rating.dart';
+import "dart:math";
 
 import '../model/movie.dart';
 
@@ -10,42 +11,78 @@ part 'movie_event.dart';
 
 part 'movie_state.dart';
 
-const String apiToken = "8CTYG4C-MJGMVV8-P7G5997-CD8T22P";
+const String apiToken = "6624381e-f39e-497f-b02c-9dd0ce8cd08b";
 
 class MovieBloc extends Bloc<MovieEvent, MovieState> {
   final http.Client httpClient;
 
   MovieBloc({required this.httpClient}) : super(const MovieState()) {
-    on<MovieFetched>(_onMovieFetched);
+    on<InitEvent>(_onInit);
+    on<YesButtonPressed>(_onYesButtonPressed);
+    on<NoButtonPressed>(_onNoButtonPressed);
   }
 
-  Future<void> _onMovieFetched(
-      MovieFetched event, Emitter<MovieState> emit) async {
+  Future<void> _onInit(
+      InitEvent event, Emitter<MovieState> emit) async {
     try {
-      final movie = Movie();
-      print("onmoviefetched");
-      // final movie = await _fetchRandomMovie(); шо бы не тратить запросы
-      return emit(state.copyWith(movie: movie, status: MovieStatus.success));
+      final movieList = await _fetchMovieList(page: 1);
+      emit(
+        state.copyWith(
+          movieList: movieList,
+          movie: _getRandomMovieFromList(movieList: movieList),
+        ),
+      );
+      for (var i = 2; i <= state.movieList.totalPagesCount; i++) {
+        final fetchedList = await _fetchMovieList(page: i);
+        state.movieList.movies.addAll(fetchedList.movies);
+        print("added movies from page $i");
+      }
+      return emit(state.copyWith(
+        status: MovieStatus.success,
+      ));
     } catch (_) {
       emit(state.copyWith(status: MovieStatus.failure));
     }
   }
 
-  Future<Movie> _fetchRandomMovie() async {
+  void _onYesButtonPressed(YesButtonPressed event, Emitter<MovieState> emit) {
+    return emit(
+      state.copyWith(
+        movie: _getRandomMovieFromList(movieList: state.movieList),
+      ),
+    );
+  }
+
+  void _onNoButtonPressed(NoButtonPressed event, Emitter<MovieState> emit) {
+    return emit(
+      state.copyWith(
+        movie: _getRandomMovieFromList(movieList: state.movieList),
+      ),
+    );
+  }
+
+  Future<MovieList> _fetchMovieList({int page = 1}) async {
     final response = await httpClient.get(
-        Uri(
-          host: "api.kinopoisk.dev",
-          path: "/v1.4/movie/random",
-          scheme: "https",
-          queryParameters: {"lists": "top250"},
-        ),
-        headers: {"X-API-KEY": apiToken});
+      Uri(
+        host: "kinopoiskapiunofficial.tech",
+        path: "/api/v2.2/films/collections",
+        scheme: "https",
+        queryParameters: {
+          "type": "TOP_250_MOVIES",
+          "page": page.toString(),
+        },
+      ),
+      headers: {
+        "X-API-KEY": apiToken,
+      },
+    );
     if (response.statusCode == 200) {
-      print(response.body);
-      final movie = Movie.fromJson(response.body);
-      print(movie.poster?.previewUrl);
-      return movie;
+      return MovieList.fromJson(response.body);
     }
     throw Exception("fetching error");
+  }
+
+  Movie _getRandomMovieFromList({required MovieList movieList}) {
+    return movieList.movies[Random().nextInt(movieList.movies.length)];
   }
 }

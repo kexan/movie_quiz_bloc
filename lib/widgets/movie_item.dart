@@ -1,38 +1,34 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_quiz_bloc/bloc/movie_bloc.dart';
 import '../model/movie.dart';
 
 class MovieItem extends StatelessWidget {
-  final Movie? movie;
+  final Movie movie;
 
   const MovieItem({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      bottom: true,
-      top: true,
       child: Column(
         children: [
           Card(
             elevation: 10,
-            margin: EdgeInsets.all(30),
+            margin: const EdgeInsets.all(30),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(24),
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(24),
               child: Image.network(
-                "https://image.openmoviedb.com/kinopoisk-images/1599028/4adf61aa-3cb7-4381-9245-523971e5b4c8/x1000",
-                isAntiAlias: true,
+                movie.posterUrlPreview,
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 350,
-            child: const Text(
+            child: Text(
               "Рейтинг этого фильма меньше чем 9?",
               style: TextStyle(
                 fontSize: 24,
@@ -41,7 +37,7 @@ class MovieItem extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 25,
           ),
           Row(
@@ -58,15 +54,15 @@ class MovieItem extends StatelessWidget {
                     backgroundColor: Colors.red,
                     elevation: 5,
                   ),
-                  onPressed: () =>
-                      BlocProvider.of<MovieBloc>(context).add(MovieFetched()),
-                  child: Text(
+                  onPressed: () => BlocProvider.of<MovieBloc>(context)
+                      .add(NoButtonPressed()),
+                  child: const Text(
                     "Нет",
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 30,
               ),
               SizedBox(
@@ -80,9 +76,9 @@ class MovieItem extends StatelessWidget {
                     backgroundColor: Colors.green,
                     elevation: 5,
                   ),
-                  onPressed: () =>
-                      BlocProvider.of<MovieBloc>(context).add(MovieFetched()),
-                  child: Text(
+                  onPressed: () => BlocProvider.of<MovieBloc>(context)
+                      .add(YesButtonPressed()),
+                  child: const Text(
                     "Да",
                     style: TextStyle(color: Colors.white),
                   ),

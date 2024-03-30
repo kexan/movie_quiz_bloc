@@ -5,4 +5,8 @@ sealed class MovieEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-final class MovieFetched extends MovieEvent {}
+final class InitEvent extends MovieEvent {}
+
+final class NoButtonPressed extends MovieEvent {}
+
+final class YesButtonPressed extends MovieEvent {}

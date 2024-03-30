@@ -12,7 +12,7 @@ class QuizPage extends StatelessWidget {
     return Scaffold(
       body: BlocProvider(
         create: (context) =>
-            MovieBloc(httpClient: http.Client())..add(MovieFetched()),
+            MovieBloc(httpClient: http.Client())..add(InitEvent()),
         child: const Quiz(),
       ),
     );
