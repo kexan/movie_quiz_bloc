@@ -8,7 +8,7 @@ class Movie extends Equatable {
   final String nameRu;
   final dynamic nameEn;
   final String? nameOriginal;
-  final double? ratingKinopoisk;
+  final double ratingKinopoisk;
   final double? ratingImdb;
   final int year;
   final String posterUrl;

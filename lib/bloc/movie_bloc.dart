@@ -22,14 +22,12 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     on<NoButtonPressed>(_onNoButtonPressed);
   }
 
-  Future<void> _onInit(
-      InitEvent event, Emitter<MovieState> emit) async {
+  Future<void> _onInit(InitEvent event, Emitter<MovieState> emit) async {
     try {
       final movieList = await _fetchMovieList(page: 1);
       emit(
         state.copyWith(
           movieList: movieList,
-          movie: _getRandomMovieFromList(movieList: movieList),
         ),
       );
       for (var i = 2; i <= state.movieList.totalPagesCount; i++) {
@@ -37,8 +35,11 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
         state.movieList.movies.addAll(fetchedList.movies);
         print("added movies from page $i");
       }
+      print("exited loop");
       return emit(state.copyWith(
         status: MovieStatus.success,
+        movie: _getRandomMovieFromList(movieList: movieList),
+        ratingToCompare: Random().nextInt(10),
       ));
     } catch (_) {
       emit(state.copyWith(status: MovieStatus.failure));
@@ -46,19 +47,32 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
   }
 
   void _onYesButtonPressed(YesButtonPressed event, Emitter<MovieState> emit) {
+    _checkAnswer(userAnswer: true);
     return emit(
       state.copyWith(
         movie: _getRandomMovieFromList(movieList: state.movieList),
+        ratingToCompare: Random().nextInt(10),
       ),
     );
   }
 
   void _onNoButtonPressed(NoButtonPressed event, Emitter<MovieState> emit) {
+    _checkAnswer(userAnswer: false);
     return emit(
       state.copyWith(
         movie: _getRandomMovieFromList(movieList: state.movieList),
+        ratingToCompare: Random().nextInt(10),
       ),
     );
+  }
+
+  void _checkAnswer({required bool userAnswer}) {
+    final bool trueAnswer = state.ratingToCompare < state.movie.ratingKinopoisk;
+    if (userAnswer == trueAnswer) {
+      print("correct!");
+    } else {
+      print("mistake!");
+    }
   }
 
   Future<MovieList> _fetchMovieList({int page = 1}) async {

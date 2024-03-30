@@ -5,8 +5,10 @@ import '../model/movie.dart';
 
 class MovieItem extends StatelessWidget {
   final Movie movie;
+  final int ratingToCompare;
 
-  const MovieItem({super.key, required this.movie});
+  const MovieItem(
+      {super.key, required this.movie, required this.ratingToCompare});
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +28,10 @@ class MovieItem extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
+          SizedBox(
             width: 350,
             child: Text(
-              "Рейтинг этого фильма меньше чем 9?",
+              "Рейтинг этого фильма больше чем $ratingToCompare?",
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w500,
