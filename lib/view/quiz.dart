@@ -23,6 +23,7 @@ class _QuizState extends State<Quiz> {
           return MovieItem(
             movie: state.movie,
             ratingToCompare: state.ratingToCompare,
+            correctAnswers: state.correctAnswers,
           );
         case MovieStatus.failure:
           return const Center(child: Text('failed to movie facts'));

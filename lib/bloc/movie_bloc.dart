@@ -47,7 +47,9 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
   }
 
   void _onYesButtonPressed(YesButtonPressed event, Emitter<MovieState> emit) {
-    _checkAnswer(userAnswer: true);
+    if (_checkAnswer(userAnswer: true)) {
+      emit(state.copyWith(correctAnswers: state.correctAnswers + 1));
+    }
     return emit(
       state.copyWith(
         movie: _getRandomMovieFromList(movieList: state.movieList),
@@ -57,7 +59,9 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
   }
 
   void _onNoButtonPressed(NoButtonPressed event, Emitter<MovieState> emit) {
-    _checkAnswer(userAnswer: false);
+    if (_checkAnswer(userAnswer: false)) {
+      emit(state.copyWith(correctAnswers: state.correctAnswers + 1));
+    }
     return emit(
       state.copyWith(
         movie: _getRandomMovieFromList(movieList: state.movieList),
@@ -66,13 +70,9 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     );
   }
 
-  void _checkAnswer({required bool userAnswer}) {
+  bool _checkAnswer({required bool userAnswer}) {
     final bool trueAnswer = state.ratingToCompare < state.movie.ratingKinopoisk;
-    if (userAnswer == trueAnswer) {
-      print("correct!");
-    } else {
-      print("mistake!");
-    }
+    return userAnswer == trueAnswer;
   }
 
   Future<MovieList> _fetchMovieList({int page = 1}) async {

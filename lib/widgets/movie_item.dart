@@ -6,9 +6,14 @@ import '../model/movie.dart';
 class MovieItem extends StatelessWidget {
   final Movie movie;
   final int ratingToCompare;
+  final int correctAnswers;
 
-  const MovieItem(
-      {super.key, required this.movie, required this.ratingToCompare});
+  const MovieItem({
+    super.key,
+    required this.movie,
+    required this.ratingToCompare,
+    required this.correctAnswers,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +33,7 @@ class MovieItem extends StatelessWidget {
               ),
             ),
           ),
+          Text("correct answers $correctAnswers"),
           SizedBox(
             width: 350,
             child: Text(

@@ -48,5 +48,11 @@ final class MovieState extends Equatable {
   }
 
   @override
-  List<Object> get props => [movie, movieList, status];
+  List<Object> get props => [
+        movie,
+        movieList,
+        status,
+        ratingToCompare,
+        correctAnswers,
+      ];
 }
