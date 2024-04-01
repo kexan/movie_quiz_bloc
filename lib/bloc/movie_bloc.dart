@@ -35,47 +35,50 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
         state.movieList.movies.addAll(fetchedList.movies);
         print("added movies from page $i");
       }
-      print("exited loop");
-      return emit(state.copyWith(
-        status: MovieStatus.success,
-        movie: _getRandomMovieFromList(movieList: movieList),
-        ratingToCompare: Random().nextInt(10),
-      ));
+      return emit(
+        state.copyWith(
+          status: MovieStatus.success,
+          movie: _getRandomMovieFromList(movieList: movieList),
+          ratingToCompare: _getRandomNum(),
+        ),
+      );
     } catch (_) {
       emit(state.copyWith(status: MovieStatus.failure));
     }
   }
 
   void _onYesButtonPressed(YesButtonPressed event, Emitter<MovieState> emit) {
-    if (_checkAnswer(userAnswer: true)) {
-      emit(state.copyWith(correctAnswers: state.correctAnswers + 1));
-    }
-    return emit(
-      state.copyWith(
-        movie: _getRandomMovieFromList(movieList: state.movieList),
-        ratingToCompare: Random().nextInt(10),
-      ),
-    );
+    _checkAnswer(true, emit);
   }
 
   void _onNoButtonPressed(NoButtonPressed event, Emitter<MovieState> emit) {
-    if (_checkAnswer(userAnswer: false)) {
-      emit(state.copyWith(correctAnswers: state.correctAnswers + 1));
+    _checkAnswer(false, emit);
+  }
+
+  void _checkAnswer(bool userAnswer, Emitter<MovieState> emit) {
+    if (state.currentRound == 10) {
+      _onQuizEnded();
     }
-    return emit(
+
+    final bool trueAnswer = state.ratingToCompare < state.movie.ratingKinopoisk;
+    if (userAnswer == trueAnswer) {
+      emit(
+        state.copyWith(
+          correctAnswers: state.correctAnswers + 1,
+        ),
+      );
+    }
+    emit(
       state.copyWith(
         movie: _getRandomMovieFromList(movieList: state.movieList),
-        ratingToCompare: Random().nextInt(10),
+        ratingToCompare: _getRandomNum(),
       ),
     );
   }
 
-  bool _checkAnswer({required bool userAnswer}) {
-    final bool trueAnswer = state.ratingToCompare < state.movie.ratingKinopoisk;
-    return userAnswer == trueAnswer;
-  }
+  void _onQuizEnded() {}
 
-  Future<MovieList> _fetchMovieList({int page = 1}) async {
+  Future<MovieList> _fetchMovieList({required int page}) async {
     final response = await httpClient.get(
       Uri(
         host: "kinopoiskapiunofficial.tech",
@@ -98,5 +101,10 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
 
   Movie _getRandomMovieFromList({required MovieList movieList}) {
     return movieList.movies[Random().nextInt(movieList.movies.length)];
+  }
+
+  int _getRandomNum() {
+    final numRange = [7, 8, 9];
+    return numRange[Random().nextInt(numRange.length)];
   }
 }

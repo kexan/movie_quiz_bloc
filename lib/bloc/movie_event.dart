@@ -10,3 +10,5 @@ final class InitEvent extends MovieEvent {}
 final class NoButtonPressed extends MovieEvent {}
 
 final class YesButtonPressed extends MovieEvent {}
+
+final class QuizEnded extends MovieEvent {}

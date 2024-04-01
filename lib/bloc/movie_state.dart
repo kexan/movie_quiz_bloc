@@ -8,11 +8,12 @@ final class MovieState extends Equatable {
   final Movie movie;
   final int ratingToCompare;
   final int correctAnswers;
+  final int currentRound;
 
   const MovieState({
     this.movieList = const MovieList(
       movies: <Movie>[],
-      totalPagesCount: 0,
+      totalPagesCount: 1,
     ),
     this.movie = const Movie(
       kinopoiskId: 1,
@@ -29,6 +30,7 @@ final class MovieState extends Equatable {
     this.status = MovieStatus.initial,
     this.correctAnswers = 0,
     this.ratingToCompare = 0,
+    this.currentRound = 1,
   });
 
   MovieState copyWith({
@@ -37,6 +39,7 @@ final class MovieState extends Equatable {
     Movie? movie,
     int? correctAnswers,
     int? ratingToCompare,
+    int? currentRound,
   }) {
     return MovieState(
       status: status ?? this.status,
@@ -44,6 +47,7 @@ final class MovieState extends Equatable {
       movie: movie ?? this.movie,
       correctAnswers: correctAnswers ?? this.correctAnswers,
       ratingToCompare: ratingToCompare ?? this.ratingToCompare,
+      currentRound: currentRound ?? this.currentRound,
     );
   }
 
@@ -54,5 +58,6 @@ final class MovieState extends Equatable {
         status,
         ratingToCompare,
         correctAnswers,
+        currentRound,
       ];
 }
