@@ -39,7 +39,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
         state.copyWith(
           status: MovieStatus.success,
           movie: _getRandomMovieFromList(movieList: movieList),
-          ratingToCompare: _getRandomNum(),
+          ratingToCompare: _getRandomNum(7, 10),
         ),
       );
     } catch (_) {
@@ -71,7 +71,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     emit(
       state.copyWith(
         movie: _getRandomMovieFromList(movieList: state.movieList),
-        ratingToCompare: _getRandomNum(),
+        ratingToCompare: _getRandomNum(7, 10),
       ),
     );
   }
@@ -103,8 +103,5 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     return movieList.movies[Random().nextInt(movieList.movies.length)];
   }
 
-  int _getRandomNum() {
-    final numRange = [7, 8, 9];
-    return numRange[Random().nextInt(numRange.length)];
-  }
+  int _getRandomNum(int min, int max) => min + Random().nextInt(max - min);
 }
