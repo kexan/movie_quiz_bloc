@@ -7,22 +7,24 @@ import "dart:math";
 
 import '../model/movie.dart';
 
-part 'movie_event.dart';
+part 'quiz_event.dart';
 
-part 'movie_state.dart';
+part 'quiz_state.dart';
 
 const String apiToken = "6624381e-f39e-497f-b02c-9dd0ce8cd08b";
 
-class MovieBloc extends Bloc<MovieEvent, MovieState> {
+class QuizBloc extends Bloc<QuizEvent, QuizState> {
   final http.Client httpClient;
 
-  MovieBloc({required this.httpClient}) : super(const MovieState()) {
-    on<InitEvent>(_onInit);
+  QuizBloc({required this.httpClient}) : super(const QuizState()) {
+    on<QuizStarted>(_onQuizStarted);
     on<YesButtonPressed>(_onYesButtonPressed);
     on<NoButtonPressed>(_onNoButtonPressed);
+    on<RestartButtonPressed>(_onRestartButtonPressed);
   }
 
-  Future<void> _onInit(InitEvent event, Emitter<MovieState> emit) async {
+  Future<void> _onQuizStarted(
+      QuizStarted event, Emitter<QuizState> emit) async {
     try {
       final movieList = await _fetchMovieList(page: 1);
       emit(
@@ -31,35 +33,45 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
         ),
       );
       for (var i = 2; i <= state.movieList.totalPagesCount; i++) {
-        final fetchedList = await _fetchMovieList(page: i);
-        state.movieList.movies.addAll(fetchedList.movies);
-        print("added movies from page $i");
+        final movieList = await _fetchMovieList(page: i);
+        state.movieList.movies.addAll(movieList.movies);
       }
       return emit(
         state.copyWith(
-          status: MovieStatus.success,
+          status: QuizStatus.quizStarted,
           movie: _getRandomMovieFromList(movieList: movieList),
           ratingToCompare: _getRandomNum(7, 10),
         ),
       );
     } catch (_) {
-      emit(state.copyWith(status: MovieStatus.failure));
+      emit(state.copyWith(status: QuizStatus.failure));
     }
   }
 
-  void _onYesButtonPressed(YesButtonPressed event, Emitter<MovieState> emit) {
-    _checkAnswer(true, emit);
+  void _onYesButtonPressed(YesButtonPressed event, Emitter<QuizState> emit) {
+    return _checkAnswer(true, emit);
   }
 
-  void _onNoButtonPressed(NoButtonPressed event, Emitter<MovieState> emit) {
-    _checkAnswer(false, emit);
+  void _onNoButtonPressed(NoButtonPressed event, Emitter<QuizState> emit) {
+    return _checkAnswer(false, emit);
   }
 
-  void _checkAnswer(bool userAnswer, Emitter<MovieState> emit) {
-    if (state.currentRound == 10) {
-      _onQuizEnded();
-    }
+  void _onRestartButtonPressed(
+      RestartButtonPressed event, Emitter<QuizState> emit) {
+    return emit(
+      state.copyWith(
+        status: QuizStatus.quizStarted,
+        currentRound: 0,
+        correctAnswers: 0,
+      ),
+    );
+  }
 
+  void _onQuizEnded(Emitter<QuizState> emit) {
+    return emit(state.copyWith(status: QuizStatus.quizEnded));
+  }
+
+  void _checkAnswer(bool userAnswer, Emitter<QuizState> emit) {
     final bool trueAnswer = state.ratingToCompare < state.movie.ratingKinopoisk;
     if (userAnswer == trueAnswer) {
       emit(
@@ -68,15 +80,17 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
         ),
       );
     }
+    if (state.currentRound == 9) {
+      _onQuizEnded(emit);
+    }
     emit(
       state.copyWith(
         movie: _getRandomMovieFromList(movieList: state.movieList),
         ratingToCompare: _getRandomNum(7, 10),
+        currentRound: state.currentRound + 1,
       ),
     );
   }
-
-  void _onQuizEnded() {}
 
   Future<MovieList> _fetchMovieList({required int page}) async {
     final response = await httpClient.get(

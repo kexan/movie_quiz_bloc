@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_quiz_bloc/bloc/movie_bloc.dart';
+import 'package:movie_quiz_bloc/bloc/quiz_bloc.dart';
 import '../model/movie.dart';
 
 class MovieItem extends StatelessWidget {
@@ -62,7 +62,7 @@ class MovieItem extends StatelessWidget {
                     backgroundColor: Colors.red,
                     elevation: 5,
                   ),
-                  onPressed: () => BlocProvider.of<MovieBloc>(context)
+                  onPressed: () => BlocProvider.of<QuizBloc>(context)
                       .add(NoButtonPressed()),
                   child: const Text(
                     "Нет",
@@ -84,7 +84,7 @@ class MovieItem extends StatelessWidget {
                     backgroundColor: Colors.green,
                     elevation: 5,
                   ),
-                  onPressed: () => BlocProvider.of<MovieBloc>(context)
+                  onPressed: () => BlocProvider.of<QuizBloc>(context)
                       .add(YesButtonPressed()),
                   child: const Text(
                     "Да",

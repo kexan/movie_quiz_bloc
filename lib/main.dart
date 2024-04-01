@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_quiz_bloc/app.dart';
-import 'package:movie_quiz_bloc/bloc/movie_bloc.dart';
+import 'package:movie_quiz_bloc/bloc/quiz_bloc.dart';
 
 import 'package:http/http.dart' as http;
 

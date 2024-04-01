@@ -1,16 +1,16 @@
-part of 'movie_bloc.dart';
+part of 'quiz_bloc.dart';
 
-enum MovieStatus { initial, success, failure }
+enum QuizStatus { initial, quizStarted, quizEnded, failure }
 
-final class MovieState extends Equatable {
-  final MovieStatus status;
+final class QuizState extends Equatable {
+  final QuizStatus status;
   final MovieList movieList;
   final Movie movie;
   final int ratingToCompare;
   final int correctAnswers;
   final int currentRound;
 
-  const MovieState({
+  const QuizState({
     this.movieList = const MovieList(
       movies: <Movie>[],
       totalPagesCount: 1,
@@ -27,21 +27,21 @@ final class MovieState extends Equatable {
       posterUrl: "posterUrl",
       posterUrlPreview: "posterUrlPreview",
     ),
-    this.status = MovieStatus.initial,
+    this.status = QuizStatus.initial,
     this.correctAnswers = 0,
     this.ratingToCompare = 0,
-    this.currentRound = 1,
+    this.currentRound = 0,
   });
 
-  MovieState copyWith({
-    MovieStatus? status,
+  QuizState copyWith({
+    QuizStatus? status,
     MovieList? movieList,
     Movie? movie,
     int? correctAnswers,
     int? ratingToCompare,
     int? currentRound,
   }) {
-    return MovieState(
+    return QuizState(
       status: status ?? this.status,
       movieList: movieList ?? this.movieList,
       movie: movie ?? this.movie,
