@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_quiz_bloc/bloc/quiz_bloc.dart';
-import 'package:movie_quiz_bloc/widgets/movie_item.dart';
+import 'package:movie_quiz_bloc/widgets/quiz_item.dart';
 import 'package:movie_quiz_bloc/widgets/result_dialog.dart';
 
 class Quiz extends StatefulWidget {
@@ -22,7 +22,7 @@ class _QuizState extends State<Quiz> {
               child: CircularProgressIndicator(),
             );
           case QuizStatus.quizStarted:
-            return MovieItem(
+            return QuizItem(
               movie: state.movie,
               ratingToCompare: state.ratingToCompare,
               correctAnswers: state.correctAnswers,
@@ -34,7 +34,7 @@ class _QuizState extends State<Quiz> {
               ),
             );
           case QuizStatus.failure:
-            return const Center(child: Text('failed to movie facts'));
+            return const Center(child: Text('failed to fetch movies'));
         }
       },
     );

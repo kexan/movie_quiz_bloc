@@ -14,6 +14,7 @@ class QuizPage extends StatelessWidget {
         create: (context) =>
             QuizBloc(httpClient: http.Client())..add(QuizStarted()),
         child: const Quiz(),
+
       ),
     );
   }

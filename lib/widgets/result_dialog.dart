@@ -11,14 +11,14 @@ class ResultDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text("Результаты"),
+      title: const Text("Результаты"),
       content: Text("Правильных ответов $correctAnswers из 10"),
       actions: [
         TextButton(
           onPressed: () => BlocProvider.of<QuizBloc>(context).add(
             RestartButtonPressed(),
           ),
-          child: Text("Можем повторить"),
+          child: const Text("Можем повторить"),
         ),
       ],
     );
