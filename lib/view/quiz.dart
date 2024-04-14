@@ -14,29 +14,34 @@ class Quiz extends StatefulWidget {
 class _QuizState extends State<Quiz> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<QuizBloc, QuizState>(
-      builder: (context, state) {
-        switch (state.status) {
-          case QuizStatus.initial:
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          case QuizStatus.quizStarted:
-            return QuizItem(
-              movie: state.movie,
-              ratingToCompare: state.ratingToCompare,
-              correctAnswers: state.correctAnswers,
-            );
-          case QuizStatus.quizEnded:
-            return Center(
-              child: ResultDialog(
-                correctAnswers: state.correctAnswers,
-              ),
-            );
-          case QuizStatus.failure:
-            return const Center(child: Text('failed to fetch movies'));
-        }
-      },
-    );
+    return BlocConsumer<QuizBloc, QuizState>(listener: (context, state) {
+      if (state.status == QuizStatus.quizEnded) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return ResultDialog(correctAnswers: state.correctAnswers);
+          },
+        );
+      }
+    }, builder: (context, state) {
+      switch (state.status) {
+        case QuizStatus.initial:
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        case QuizStatus.failure:
+          return const Material(
+            child: Center(
+              child: Text('Не удалось получить фильмы'),
+            ),
+          );
+        default:
+          return QuizItem(
+            movie: state.movie,
+            ratingToCompare: state.ratingToCompare,
+            correctAnswers: state.correctAnswers,
+          );
+      }
+    });
   }
 }

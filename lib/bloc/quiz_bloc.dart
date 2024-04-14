@@ -17,14 +17,13 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
   final http.Client httpClient;
 
   QuizBloc({required this.httpClient}) : super(const QuizState()) {
-    on<QuizStarted>(_onQuizStarted);
+    on<Init>(_onInit);
     on<YesButtonPressed>(_onYesButtonPressed);
     on<NoButtonPressed>(_onNoButtonPressed);
     on<RestartButtonPressed>(_onRestartButtonPressed);
   }
 
-  Future<void> _onQuizStarted(
-      QuizStarted event, Emitter<QuizState> emit) async {
+  Future<void> _onInit(Init event, Emitter<QuizState> emit) async {
     try {
       final movieList = await _fetchMovieList(page: 1);
       emit(
@@ -61,6 +60,7 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
     return emit(
       state.copyWith(
         status: QuizStatus.quizStarted,
+        movie: _getRandomMovieFromList(movieList: state.movieList),
         currentRound: 0,
         correctAnswers: 0,
       ),
@@ -82,6 +82,7 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
     }
     if (state.currentRound == 9) {
       _onQuizEnded(emit);
+      return;
     }
     emit(
       state.copyWith(

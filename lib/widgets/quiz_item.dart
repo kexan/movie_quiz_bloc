@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_quiz_bloc/bloc/quiz_bloc.dart';
+import 'package:transparent_image/transparent_image.dart';
 import '../model/movie.dart';
 
 class QuizItem extends StatelessWidget {
@@ -17,20 +18,22 @@ class QuizItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        MoviePhoto(movie: movie),
-        Text(
-          "Рейтинг этого фильма больше чем $ratingToCompare?",
-          style: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w500,
+    return Material(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          MoviePhoto(movie: movie),
+          Text(
+            "Рейтинг этого фильма больше чем $ratingToCompare?",
+            style: const TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.w500,
+            ),
+            textAlign: TextAlign.center,
           ),
-          textAlign: TextAlign.center,
-        ),
-        const ButtonsRow()
-      ],
+          const ButtonsRow()
+        ],
+      ),
     );
   }
 }
@@ -45,8 +48,7 @@ class MoviePhoto extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 550,
+    return Expanded(
       child: Card(
         elevation: 10,
         margin: const EdgeInsets.all(30),
@@ -55,8 +57,9 @@ class MoviePhoto extends StatelessWidget {
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(24),
-          child: Image.network(
-            movie.posterUrlPreview,
+          child: FadeInImage.memoryNetwork(
+            placeholder: kTransparentImage,
+            image: movie.posterUrlPreview,
           ),
         ),
       ),

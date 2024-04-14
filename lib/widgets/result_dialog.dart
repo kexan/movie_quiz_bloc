@@ -15,9 +15,12 @@ class ResultDialog extends StatelessWidget {
       content: Text("Правильных ответов $correctAnswers из 10"),
       actions: [
         TextButton(
-          onPressed: () => BlocProvider.of<QuizBloc>(context).add(
-            RestartButtonPressed(),
-          ),
+          onPressed: () {
+            BlocProvider.of<QuizBloc>(context).add(
+              RestartButtonPressed(),
+            );
+            Navigator.of(context).pop();
+          },
           child: const Text("Можем повторить"),
         ),
       ],

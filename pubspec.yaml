@@ -15,6 +15,7 @@ dependencies:
   flutter_bloc: ^8.1.4
   http: ^1.2.1
   stream_transform: ^2.1.0
+  transparent_image: ^2.0.1
 
 dev_dependencies:
   flutter_test:
