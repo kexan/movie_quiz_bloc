@@ -4,14 +4,9 @@ import 'package:movie_quiz_bloc/bloc/quiz_bloc.dart';
 import 'package:movie_quiz_bloc/widgets/quiz_item.dart';
 import 'package:movie_quiz_bloc/widgets/result_dialog.dart';
 
-class Quiz extends StatefulWidget {
+class Quiz extends StatelessWidget {
   const Quiz({super.key});
 
-  @override
-  State<StatefulWidget> createState() => _QuizState();
-}
-
-class _QuizState extends State<Quiz> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<QuizBloc, QuizState>(listener: (context, state) {

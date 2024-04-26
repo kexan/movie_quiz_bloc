@@ -48,10 +48,12 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
   }
 
   void _onYesButtonPressed(YesButtonPressed event, Emitter<QuizState> emit) {
+    emit(state.copyWith(status: QuizStatus.yesButtonPressed));
     return _checkAnswer(true, emit);
   }
 
   void _onNoButtonPressed(NoButtonPressed event, Emitter<QuizState> emit) {
+    emit(state.copyWith(status: QuizStatus.noButtonPressed));
     return _checkAnswer(false, emit);
   }
 

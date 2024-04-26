@@ -38,32 +38,75 @@ class QuizItem extends StatelessWidget {
   }
 }
 
-class MoviePhoto extends StatelessWidget {
+class MoviePhoto extends StatefulWidget {
+  final Movie movie;
+
   const MoviePhoto({
     super.key,
     required this.movie,
   });
 
-  final Movie movie;
+  @override
+  createState() => _MoviePhotoState();
+}
+
+class _MoviePhotoState extends State<MoviePhoto> {
+  Color borderColor = Colors.transparent;
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return SizedBox(
       child: Card(
         elevation: 10,
         margin: const EdgeInsets.all(30),
         shape: RoundedRectangleBorder(
+          side: BorderSide(
+            strokeAlign: BorderSide.strokeAlignOutside,
+            color: borderColor,
+            width: 10,
+          ),
           borderRadius: BorderRadius.circular(24),
         ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(24),
-          child: FadeInImage.memoryNetwork(
-            placeholder: kTransparentImage,
-            image: movie.posterUrlPreview,
+        child: SizedBox(
+          height: 450,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(24),
+            child: FadeInImage.memoryNetwork(
+              placeholder: kTransparentImage,
+              image: widget.movie.posterUrlPreview,
+            ),
           ),
         ),
       ),
     );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final currentState = context.watch<QuizBloc>().state;
+
+    switch (currentState.status) {
+      case QuizStatus.yesButtonPressed:
+        _startAnimation(Colors.green);
+      case QuizStatus.noButtonPressed:
+        _startAnimation(Colors.red);
+      default:
+        _startAnimation(Colors.transparent);
+    }
+  }
+
+  void _startAnimation(Color color) {
+
+    setState(() {
+      borderColor = color;
+    });
+
+    Future.delayed(const Duration(milliseconds: 400), () {
+      setState(() {
+        borderColor = Colors.transparent;
+      });
+    });
   }
 }
 

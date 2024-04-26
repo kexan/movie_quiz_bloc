@@ -1,6 +1,13 @@
 part of 'quiz_bloc.dart';
 
-enum QuizStatus { initial, quizStarted, quizEnded, failure }
+enum QuizStatus {
+  initial,
+  quizStarted,
+  yesButtonPressed,
+  noButtonPressed,
+  quizEnded,
+  failure
+}
 
 final class QuizState extends Equatable {
   final QuizStatus status;
