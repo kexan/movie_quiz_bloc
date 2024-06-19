@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:movie_quiz_bloc/data/api/api_movie.dart';
+
+import '../../data/api/model/movie/api_movie.dart';
 
 class Movie extends Equatable {
   final int kinopoiskId;

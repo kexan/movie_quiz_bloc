@@ -1,5 +1,6 @@
 import 'package:movie_quiz_bloc/domain/model/movie.dart';
-import '../../data/api/api_movie_list.dart';
+
+import '../../data/api/model/movielist/api_movie_list.dart';
 
 class MovieList {
   final int totalPages;
@@ -11,7 +12,6 @@ class MovieList {
   });
 
   MovieList copyWith({
-    int? currentPage,
     int? totalPages,
     List<Movie>? movies,
   }) =>

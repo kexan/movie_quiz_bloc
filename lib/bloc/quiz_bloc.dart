@@ -11,8 +11,6 @@ part 'quiz_event.dart';
 
 part 'quiz_state.dart';
 
-const String apiToken = "6624381e-f39e-497f-b02c-9dd0ce8cd08b";
-
 class QuizBloc extends Bloc<QuizEvent, QuizState> {
   final http.Client httpClient;
 
@@ -95,26 +93,7 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
     );
   }
 
-  Future<MovieList> _fetchMovieList({required int page}) async {
-    final response = await httpClient.get(
-      Uri(
-        host: "kinopoiskapiunofficial.tech",
-        path: "/api/v2.2/films/collections",
-        scheme: "https",
-        queryParameters: {
-          "type": "TOP_250_MOVIES",
-          "page": page.toString(),
-        },
-      ),
-      headers: {
-        "X-API-KEY": apiToken,
-      },
-    );
-    if (response.statusCode == 200) {
-      return MovieList.fromJson(response.body);
-    }
-    throw Exception("fetching error");
-  }
+  Future<MovieList> _fetchMovieList({required int page}) async {}
 
   Movie _getRandomMovieFromList({required MovieList movieList}) {
     return movieList.movies[Random().nextInt(movieList.movies.length)];

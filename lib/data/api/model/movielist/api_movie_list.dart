@@ -1,10 +1,10 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'dart:convert';
 
-import 'package:movie_quiz_bloc/data/api/api_movie.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../movie/api_movie.dart';
 
 part 'api_movie_list.freezed.dart';
-
 part 'api_movie_list.g.dart';
 
 ApiMovieList apiMovieListFromJson(String str) =>
