@@ -20,7 +20,7 @@ final class QuizState extends Equatable {
   const QuizState({
     this.movieList = const MovieList(
       movies: <Movie>[],
-      totalPagesCount: 1,
+      totalPages: 1,
     ),
     this.movie = const Movie(
       kinopoiskId: 1,

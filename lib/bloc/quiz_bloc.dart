@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:http/http.dart' as http;
 import "dart:math";
 
-import '../model/movie.dart';
+import '../domain/model/movie.dart';
 
 part 'quiz_event.dart';
 
@@ -31,7 +31,7 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
           movieList: movieList,
         ),
       );
-      for (var i = 2; i <= state.movieList.totalPagesCount; i++) {
+      for (var i = 2; i <= state.movieList.totalPages; i++) {
         final movieList = await _fetchMovieList(page: i);
         state.movieList.movies.addAll(movieList.movies);
       }
@@ -82,7 +82,7 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
         ),
       );
     }
-    if (state.currentRound == 9) {
+    if (state.currentRound >= 9) {
       _onQuizEnded(emit);
       return;
     }

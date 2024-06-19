@@ -9,7 +9,8 @@ class Quiz extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<QuizBloc, QuizState>(listener: (context, state) {
+    return BlocConsumer<QuizBloc, QuizState>(
+        listener: (context, state) {
       if (state.status == QuizStatus.quizEnded) {
         showDialog(
           context: context,
@@ -18,7 +19,8 @@ class Quiz extends StatelessWidget {
           },
         );
       }
-    }, builder: (context, state) {
+    },
+        builder: (context, state) {
       switch (state.status) {
         case QuizStatus.initial:
           return const Center(

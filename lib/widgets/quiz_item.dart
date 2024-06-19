@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_quiz_bloc/bloc/quiz_bloc.dart';
 import 'package:transparent_image/transparent_image.dart';
-import '../model/movie.dart';
+
+import '../domain/model/movie.dart';
 
 class QuizItem extends StatelessWidget {
   final Movie movie;
@@ -20,6 +21,7 @@ class QuizItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           MoviePhoto(movie: movie),
@@ -55,26 +57,24 @@ class _MoviePhotoState extends State<MoviePhoto> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: Card(
-        elevation: 10,
-        margin: const EdgeInsets.all(30),
-        shape: RoundedRectangleBorder(
-          side: BorderSide(
-            strokeAlign: BorderSide.strokeAlignOutside,
-            color: borderColor,
-            width: 10,
-          ),
-          borderRadius: BorderRadius.circular(24),
+    return Card(
+      elevation: 10,
+      margin: const EdgeInsets.all(30),
+      shape: RoundedRectangleBorder(
+        side: BorderSide(
+          strokeAlign: BorderSide.strokeAlignOutside,
+          color: borderColor,
+          width: 10,
         ),
-        child: SizedBox(
-          height: 450,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(24),
-            child: FadeInImage.memoryNetwork(
-              placeholder: kTransparentImage,
-              image: widget.movie.posterUrlPreview,
-            ),
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: SizedBox(
+        height: 450,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(24),
+          child: FadeInImage.memoryNetwork(
+            placeholder: kTransparentImage,
+            image: widget.movie.posterUrlPreview,
           ),
         ),
       ),
@@ -97,7 +97,6 @@ class _MoviePhotoState extends State<MoviePhoto> {
   }
 
   void _startAnimation(Color color) {
-
     setState(() {
       borderColor = color;
     });
