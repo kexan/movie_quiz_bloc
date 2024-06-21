@@ -1,9 +1,8 @@
 import 'package:movie_quiz_bloc/data/api/api_util.dart';
-
-import '../../data/api/dataservice/movie_data_service.dart';
+import 'package:movie_quiz_bloc/data/api/datasource/movie_data_source.dart';
 
 class ApiModule {
-  static final ApiUtil _apiUtil = ApiUtil(MovieDataService());
+  static final ApiUtil _apiUtil = ApiUtil(MovieDataSource());
 
   static ApiUtil apiUtil() {
     return _apiUtil;

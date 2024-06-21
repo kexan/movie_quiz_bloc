@@ -11,6 +11,13 @@ class MovieList {
     required this.movies,
   });
 
+  factory MovieList.fromApi(ApiMovieList apiMovieList) => MovieList(
+        totalPages: apiMovieList.totalPages,
+        movies: apiMovieList.items
+            .map((apiMovie) => Movie.fromApi(apiMovie))
+            .toList(),
+      );
+
   MovieList copyWith({
     int? totalPages,
     List<Movie>? movies,
@@ -18,12 +25,5 @@ class MovieList {
       MovieList(
         totalPages: totalPages ?? this.totalPages,
         movies: movies ?? this.movies,
-      );
-
-  factory MovieList.fromApi(ApiMovieList apiMovieList) => MovieList(
-        totalPages: apiMovieList.totalPages,
-        movies: apiMovieList.items
-            .map((apiMovie) => Movie.fromApi(apiMovie))
-            .toList(),
       );
 }

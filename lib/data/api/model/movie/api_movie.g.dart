@@ -14,15 +14,15 @@ _$ApiMovieImpl _$$ApiMovieImplFromJson(Map<String, dynamic> json) =>
       nameRu: json['nameRu'] as String?,
       nameEn: json['nameEn'] as String?,
       nameOriginal: json['nameOriginal'] as String?,
-      posterUrl: json['posterUrl'] as String,
+      posterUrl: json['posterUrl'] as String?,
       posterUrlPreview: json['posterUrlPreview'] as String,
       coverUrl: json['coverUrl'] as String?,
       logoUrl: json['logoUrl'] as String?,
-      reviewsCount: (json['reviewsCount'] as num).toInt(),
+      reviewsCount: (json['reviewsCount'] as num?)?.toInt(),
       ratingGoodReview: (json['ratingGoodReview'] as num?)?.toDouble(),
       ratingGoodReviewVoteCount:
           (json['ratingGoodReviewVoteCount'] as num?)?.toInt(),
-      ratingKinopoisk: (json['ratingKinopoisk'] as num?)?.toDouble(),
+      ratingKinopoisk: (json['ratingKinopoisk'] as num).toDouble(),
       ratingKinopoiskVoteCount:
           (json['ratingKinopoiskVoteCount'] as num?)?.toInt(),
       ratingImdb: (json['ratingImdb'] as num?)?.toDouble(),
@@ -42,19 +42,21 @@ _$ApiMovieImpl _$$ApiMovieImplFromJson(Map<String, dynamic> json) =>
       description: json['description'] as String?,
       shortDescription: json['shortDescription'] as String?,
       editorAnnotation: json['editorAnnotation'] as String?,
-      isTicketsAvailable: json['isTicketsAvailable'] as bool,
+      isTicketsAvailable: json['isTicketsAvailable'] as bool?,
       productionStatus: json['productionStatus'] as String?,
       type: json['type'] as String?,
       ratingMpaa: json['ratingMpaa'] as String?,
       ratingAgeLimits: json['ratingAgeLimits'] as String?,
       hasImax: json['hasImax'] as bool?,
       has3D: json['has3D'] as bool?,
-      lastSync: DateTime.parse(json['lastSync'] as String),
-      countries: (json['countries'] as List<dynamic>)
-          .map((e) => Country.fromJson(e as Map<String, dynamic>))
+      lastSync: json['lastSync'] == null
+          ? null
+          : DateTime.parse(json['lastSync'] as String),
+      countries: (json['countries'] as List<dynamic>?)
+          ?.map((e) => Country.fromJson(e as Map<String, dynamic>))
           .toList(),
-      genres: (json['genres'] as List<dynamic>)
-          .map((e) => Genre.fromJson(e as Map<String, dynamic>))
+      genres: (json['genres'] as List<dynamic>?)
+          ?.map((e) => Genre.fromJson(e as Map<String, dynamic>))
           .toList(),
       startYear: (json['startYear'] as num?)?.toInt(),
       endYear: (json['endYear'] as num?)?.toInt(),
@@ -102,7 +104,7 @@ Map<String, dynamic> _$$ApiMovieImplToJson(_$ApiMovieImpl instance) =>
       'ratingAgeLimits': instance.ratingAgeLimits,
       'hasImax': instance.hasImax,
       'has3D': instance.has3D,
-      'lastSync': instance.lastSync.toIso8601String(),
+      'lastSync': instance.lastSync?.toIso8601String(),
       'countries': instance.countries,
       'genres': instance.genres,
       'startYear': instance.startYear,

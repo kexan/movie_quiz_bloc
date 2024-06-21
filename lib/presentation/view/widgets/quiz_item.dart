@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_quiz_bloc/bloc/quiz_bloc.dart';
+import 'package:movie_quiz_bloc/domain/model/movie_list.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-import '../domain/model/movie.dart';
+import '../../bloc/quiz_bloc.dart';
 
 class QuizItem extends StatelessWidget {
-  final Movie movie;
+  final MovieList movieList;
   final int ratingToCompare;
   final int correctAnswers;
 
   const QuizItem({
     super.key,
-    required this.movie,
+    required this.movieList,
     required this.ratingToCompare,
     required this.correctAnswers,
   });
@@ -24,7 +24,7 @@ class QuizItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          MoviePhoto(movie: movie),
+          MoviePhoto(urlPreview: movieList.movies[0].posterUrlPreview),
           Text(
             "Рейтинг этого фильма больше чем $ratingToCompare?",
             style: const TextStyle(
@@ -41,11 +41,11 @@ class QuizItem extends StatelessWidget {
 }
 
 class MoviePhoto extends StatefulWidget {
-  final Movie movie;
+  final String urlPreview;
 
   const MoviePhoto({
     super.key,
-    required this.movie,
+    required this.urlPreview,
   });
 
   @override
@@ -74,27 +74,27 @@ class _MoviePhotoState extends State<MoviePhoto> {
           borderRadius: BorderRadius.circular(24),
           child: FadeInImage.memoryNetwork(
             placeholder: kTransparentImage,
-            image: widget.movie.posterUrlPreview,
+            image: widget.urlPreview,
           ),
         ),
       ),
     );
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final currentState = context.watch<QuizBloc>().state;
-
-    switch (currentState.status) {
-      case QuizStatus.yesButtonPressed:
-        _startAnimation(Colors.green);
-      case QuizStatus.noButtonPressed:
-        _startAnimation(Colors.red);
-      default:
-        _startAnimation(Colors.transparent);
-    }
-  }
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   final currentState = context.watch<QuizBloc>().state;
+  //
+  //   switch (currentState.status) {
+  //     case QuizStatus.yesButtonPressed:
+  //       _startAnimation(Colors.green);
+  //     case QuizStatus.noButtonPressed:
+  //       _startAnimation(Colors.red);
+  //     default:
+  //       _startAnimation(Colors.transparent);
+  //   }
+  // }
 
   void _startAnimation(Color color) {
     setState(() {

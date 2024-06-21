@@ -1,17 +1,14 @@
-import 'package:movie_quiz_bloc/data/api/request/get_movie_list_body.dart';
+import 'package:movie_quiz_bloc/data/api/datasource/movie_data_source.dart';
 import 'package:movie_quiz_bloc/domain/model/movie_list.dart';
 
-import 'dataservice/movie_data_service.dart';
-
 class ApiUtil {
-  final MovieDataService dataService;
+  final MovieDataSource dataSource;
 
-  ApiUtil(this.dataService);
+  ApiUtil(this.dataSource);
 
-  Future<MovieList> getMovieList(
-      {required String type, required int page}) async {
-    final body = GetMovieListBody(type, page);
-    final result = await dataService.getMovieList(body: body);
+  Future<MovieList> getMovieList({required int page}) async {
+    final result = await dataSource.getMovieListFromApi(page: page);
+    print(result);
     return MovieList.fromApi(result);
   }
 }

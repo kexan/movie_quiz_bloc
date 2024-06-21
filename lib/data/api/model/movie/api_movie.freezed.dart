@@ -26,14 +26,14 @@ mixin _$ApiMovie {
   String? get nameRu => throw _privateConstructorUsedError;
   String? get nameEn => throw _privateConstructorUsedError;
   String? get nameOriginal => throw _privateConstructorUsedError;
-  String get posterUrl => throw _privateConstructorUsedError;
+  String? get posterUrl => throw _privateConstructorUsedError;
   String get posterUrlPreview => throw _privateConstructorUsedError;
   String? get coverUrl => throw _privateConstructorUsedError;
   String? get logoUrl => throw _privateConstructorUsedError;
-  int get reviewsCount => throw _privateConstructorUsedError;
+  int? get reviewsCount => throw _privateConstructorUsedError;
   double? get ratingGoodReview => throw _privateConstructorUsedError;
   int? get ratingGoodReviewVoteCount => throw _privateConstructorUsedError;
-  double? get ratingKinopoisk => throw _privateConstructorUsedError;
+  double get ratingKinopoisk => throw _privateConstructorUsedError;
   int? get ratingKinopoiskVoteCount => throw _privateConstructorUsedError;
   double? get ratingImdb => throw _privateConstructorUsedError;
   int? get ratingImdbVoteCount => throw _privateConstructorUsedError;
@@ -50,16 +50,16 @@ mixin _$ApiMovie {
   String? get description => throw _privateConstructorUsedError;
   String? get shortDescription => throw _privateConstructorUsedError;
   String? get editorAnnotation => throw _privateConstructorUsedError;
-  bool get isTicketsAvailable => throw _privateConstructorUsedError;
+  bool? get isTicketsAvailable => throw _privateConstructorUsedError;
   String? get productionStatus => throw _privateConstructorUsedError;
   String? get type => throw _privateConstructorUsedError;
   String? get ratingMpaa => throw _privateConstructorUsedError;
   String? get ratingAgeLimits => throw _privateConstructorUsedError;
   bool? get hasImax => throw _privateConstructorUsedError;
   bool? get has3D => throw _privateConstructorUsedError;
-  DateTime get lastSync => throw _privateConstructorUsedError;
-  List<Country> get countries => throw _privateConstructorUsedError;
-  List<Genre> get genres => throw _privateConstructorUsedError;
+  DateTime? get lastSync => throw _privateConstructorUsedError;
+  List<Country>? get countries => throw _privateConstructorUsedError;
+  List<Genre>? get genres => throw _privateConstructorUsedError;
   int? get startYear => throw _privateConstructorUsedError;
   int? get endYear => throw _privateConstructorUsedError;
   bool? get serial => throw _privateConstructorUsedError;
@@ -84,14 +84,14 @@ abstract class $ApiMovieCopyWith<$Res> {
       String? nameRu,
       String? nameEn,
       String? nameOriginal,
-      String posterUrl,
+      String? posterUrl,
       String posterUrlPreview,
       String? coverUrl,
       String? logoUrl,
-      int reviewsCount,
+      int? reviewsCount,
       double? ratingGoodReview,
       int? ratingGoodReviewVoteCount,
-      double? ratingKinopoisk,
+      double ratingKinopoisk,
       int? ratingKinopoiskVoteCount,
       double? ratingImdb,
       int? ratingImdbVoteCount,
@@ -108,16 +108,16 @@ abstract class $ApiMovieCopyWith<$Res> {
       String? description,
       String? shortDescription,
       String? editorAnnotation,
-      bool isTicketsAvailable,
+      bool? isTicketsAvailable,
       String? productionStatus,
       String? type,
       String? ratingMpaa,
       String? ratingAgeLimits,
       bool? hasImax,
       bool? has3D,
-      DateTime lastSync,
-      List<Country> countries,
-      List<Genre> genres,
+      DateTime? lastSync,
+      List<Country>? countries,
+      List<Genre>? genres,
       int? startYear,
       int? endYear,
       bool? serial,
@@ -144,14 +144,14 @@ class _$ApiMovieCopyWithImpl<$Res, $Val extends ApiMovie>
     Object? nameRu = freezed,
     Object? nameEn = freezed,
     Object? nameOriginal = freezed,
-    Object? posterUrl = null,
+    Object? posterUrl = freezed,
     Object? posterUrlPreview = null,
     Object? coverUrl = freezed,
     Object? logoUrl = freezed,
-    Object? reviewsCount = null,
+    Object? reviewsCount = freezed,
     Object? ratingGoodReview = freezed,
     Object? ratingGoodReviewVoteCount = freezed,
-    Object? ratingKinopoisk = freezed,
+    Object? ratingKinopoisk = null,
     Object? ratingKinopoiskVoteCount = freezed,
     Object? ratingImdb = freezed,
     Object? ratingImdbVoteCount = freezed,
@@ -168,16 +168,16 @@ class _$ApiMovieCopyWithImpl<$Res, $Val extends ApiMovie>
     Object? description = freezed,
     Object? shortDescription = freezed,
     Object? editorAnnotation = freezed,
-    Object? isTicketsAvailable = null,
+    Object? isTicketsAvailable = freezed,
     Object? productionStatus = freezed,
     Object? type = freezed,
     Object? ratingMpaa = freezed,
     Object? ratingAgeLimits = freezed,
     Object? hasImax = freezed,
     Object? has3D = freezed,
-    Object? lastSync = null,
-    Object? countries = null,
-    Object? genres = null,
+    Object? lastSync = freezed,
+    Object? countries = freezed,
+    Object? genres = freezed,
     Object? startYear = freezed,
     Object? endYear = freezed,
     Object? serial = freezed,
@@ -209,10 +209,10 @@ class _$ApiMovieCopyWithImpl<$Res, $Val extends ApiMovie>
           ? _value.nameOriginal
           : nameOriginal // ignore: cast_nullable_to_non_nullable
               as String?,
-      posterUrl: null == posterUrl
+      posterUrl: freezed == posterUrl
           ? _value.posterUrl
           : posterUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       posterUrlPreview: null == posterUrlPreview
           ? _value.posterUrlPreview
           : posterUrlPreview // ignore: cast_nullable_to_non_nullable
@@ -225,10 +225,10 @@ class _$ApiMovieCopyWithImpl<$Res, $Val extends ApiMovie>
           ? _value.logoUrl
           : logoUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      reviewsCount: null == reviewsCount
+      reviewsCount: freezed == reviewsCount
           ? _value.reviewsCount
           : reviewsCount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       ratingGoodReview: freezed == ratingGoodReview
           ? _value.ratingGoodReview
           : ratingGoodReview // ignore: cast_nullable_to_non_nullable
@@ -237,10 +237,10 @@ class _$ApiMovieCopyWithImpl<$Res, $Val extends ApiMovie>
           ? _value.ratingGoodReviewVoteCount
           : ratingGoodReviewVoteCount // ignore: cast_nullable_to_non_nullable
               as int?,
-      ratingKinopoisk: freezed == ratingKinopoisk
+      ratingKinopoisk: null == ratingKinopoisk
           ? _value.ratingKinopoisk
           : ratingKinopoisk // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as double,
       ratingKinopoiskVoteCount: freezed == ratingKinopoiskVoteCount
           ? _value.ratingKinopoiskVoteCount
           : ratingKinopoiskVoteCount // ignore: cast_nullable_to_non_nullable
@@ -305,10 +305,10 @@ class _$ApiMovieCopyWithImpl<$Res, $Val extends ApiMovie>
           ? _value.editorAnnotation
           : editorAnnotation // ignore: cast_nullable_to_non_nullable
               as String?,
-      isTicketsAvailable: null == isTicketsAvailable
+      isTicketsAvailable: freezed == isTicketsAvailable
           ? _value.isTicketsAvailable
           : isTicketsAvailable // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
       productionStatus: freezed == productionStatus
           ? _value.productionStatus
           : productionStatus // ignore: cast_nullable_to_non_nullable
@@ -333,18 +333,18 @@ class _$ApiMovieCopyWithImpl<$Res, $Val extends ApiMovie>
           ? _value.has3D
           : has3D // ignore: cast_nullable_to_non_nullable
               as bool?,
-      lastSync: null == lastSync
+      lastSync: freezed == lastSync
           ? _value.lastSync
           : lastSync // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      countries: null == countries
+              as DateTime?,
+      countries: freezed == countries
           ? _value.countries
           : countries // ignore: cast_nullable_to_non_nullable
-              as List<Country>,
-      genres: null == genres
+              as List<Country>?,
+      genres: freezed == genres
           ? _value.genres
           : genres // ignore: cast_nullable_to_non_nullable
-              as List<Genre>,
+              as List<Genre>?,
       startYear: freezed == startYear
           ? _value.startYear
           : startYear // ignore: cast_nullable_to_non_nullable
@@ -384,14 +384,14 @@ abstract class _$$ApiMovieImplCopyWith<$Res>
       String? nameRu,
       String? nameEn,
       String? nameOriginal,
-      String posterUrl,
+      String? posterUrl,
       String posterUrlPreview,
       String? coverUrl,
       String? logoUrl,
-      int reviewsCount,
+      int? reviewsCount,
       double? ratingGoodReview,
       int? ratingGoodReviewVoteCount,
-      double? ratingKinopoisk,
+      double ratingKinopoisk,
       int? ratingKinopoiskVoteCount,
       double? ratingImdb,
       int? ratingImdbVoteCount,
@@ -408,16 +408,16 @@ abstract class _$$ApiMovieImplCopyWith<$Res>
       String? description,
       String? shortDescription,
       String? editorAnnotation,
-      bool isTicketsAvailable,
+      bool? isTicketsAvailable,
       String? productionStatus,
       String? type,
       String? ratingMpaa,
       String? ratingAgeLimits,
       bool? hasImax,
       bool? has3D,
-      DateTime lastSync,
-      List<Country> countries,
-      List<Genre> genres,
+      DateTime? lastSync,
+      List<Country>? countries,
+      List<Genre>? genres,
       int? startYear,
       int? endYear,
       bool? serial,
@@ -442,14 +442,14 @@ class __$$ApiMovieImplCopyWithImpl<$Res>
     Object? nameRu = freezed,
     Object? nameEn = freezed,
     Object? nameOriginal = freezed,
-    Object? posterUrl = null,
+    Object? posterUrl = freezed,
     Object? posterUrlPreview = null,
     Object? coverUrl = freezed,
     Object? logoUrl = freezed,
-    Object? reviewsCount = null,
+    Object? reviewsCount = freezed,
     Object? ratingGoodReview = freezed,
     Object? ratingGoodReviewVoteCount = freezed,
-    Object? ratingKinopoisk = freezed,
+    Object? ratingKinopoisk = null,
     Object? ratingKinopoiskVoteCount = freezed,
     Object? ratingImdb = freezed,
     Object? ratingImdbVoteCount = freezed,
@@ -466,16 +466,16 @@ class __$$ApiMovieImplCopyWithImpl<$Res>
     Object? description = freezed,
     Object? shortDescription = freezed,
     Object? editorAnnotation = freezed,
-    Object? isTicketsAvailable = null,
+    Object? isTicketsAvailable = freezed,
     Object? productionStatus = freezed,
     Object? type = freezed,
     Object? ratingMpaa = freezed,
     Object? ratingAgeLimits = freezed,
     Object? hasImax = freezed,
     Object? has3D = freezed,
-    Object? lastSync = null,
-    Object? countries = null,
-    Object? genres = null,
+    Object? lastSync = freezed,
+    Object? countries = freezed,
+    Object? genres = freezed,
     Object? startYear = freezed,
     Object? endYear = freezed,
     Object? serial = freezed,
@@ -507,10 +507,10 @@ class __$$ApiMovieImplCopyWithImpl<$Res>
           ? _value.nameOriginal
           : nameOriginal // ignore: cast_nullable_to_non_nullable
               as String?,
-      posterUrl: null == posterUrl
+      posterUrl: freezed == posterUrl
           ? _value.posterUrl
           : posterUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       posterUrlPreview: null == posterUrlPreview
           ? _value.posterUrlPreview
           : posterUrlPreview // ignore: cast_nullable_to_non_nullable
@@ -523,10 +523,10 @@ class __$$ApiMovieImplCopyWithImpl<$Res>
           ? _value.logoUrl
           : logoUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      reviewsCount: null == reviewsCount
+      reviewsCount: freezed == reviewsCount
           ? _value.reviewsCount
           : reviewsCount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       ratingGoodReview: freezed == ratingGoodReview
           ? _value.ratingGoodReview
           : ratingGoodReview // ignore: cast_nullable_to_non_nullable
@@ -535,10 +535,10 @@ class __$$ApiMovieImplCopyWithImpl<$Res>
           ? _value.ratingGoodReviewVoteCount
           : ratingGoodReviewVoteCount // ignore: cast_nullable_to_non_nullable
               as int?,
-      ratingKinopoisk: freezed == ratingKinopoisk
+      ratingKinopoisk: null == ratingKinopoisk
           ? _value.ratingKinopoisk
           : ratingKinopoisk // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as double,
       ratingKinopoiskVoteCount: freezed == ratingKinopoiskVoteCount
           ? _value.ratingKinopoiskVoteCount
           : ratingKinopoiskVoteCount // ignore: cast_nullable_to_non_nullable
@@ -603,10 +603,10 @@ class __$$ApiMovieImplCopyWithImpl<$Res>
           ? _value.editorAnnotation
           : editorAnnotation // ignore: cast_nullable_to_non_nullable
               as String?,
-      isTicketsAvailable: null == isTicketsAvailable
+      isTicketsAvailable: freezed == isTicketsAvailable
           ? _value.isTicketsAvailable
           : isTicketsAvailable // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
       productionStatus: freezed == productionStatus
           ? _value.productionStatus
           : productionStatus // ignore: cast_nullable_to_non_nullable
@@ -631,18 +631,18 @@ class __$$ApiMovieImplCopyWithImpl<$Res>
           ? _value.has3D
           : has3D // ignore: cast_nullable_to_non_nullable
               as bool?,
-      lastSync: null == lastSync
+      lastSync: freezed == lastSync
           ? _value.lastSync
           : lastSync // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      countries: null == countries
+              as DateTime?,
+      countries: freezed == countries
           ? _value._countries
           : countries // ignore: cast_nullable_to_non_nullable
-              as List<Country>,
-      genres: null == genres
+              as List<Country>?,
+      genres: freezed == genres
           ? _value._genres
           : genres // ignore: cast_nullable_to_non_nullable
-              as List<Genre>,
+              as List<Genre>?,
       startYear: freezed == startYear
           ? _value.startYear
           : startYear // ignore: cast_nullable_to_non_nullable
@@ -709,8 +709,8 @@ class _$ApiMovieImpl implements _ApiMovie {
       required this.hasImax,
       required this.has3D,
       required this.lastSync,
-      required final List<Country> countries,
-      required final List<Genre> genres,
+      required final List<Country>? countries,
+      required final List<Genre>? genres,
       required this.startYear,
       required this.endYear,
       required this.serial,
@@ -735,7 +735,7 @@ class _$ApiMovieImpl implements _ApiMovie {
   @override
   final String? nameOriginal;
   @override
-  final String posterUrl;
+  final String? posterUrl;
   @override
   final String posterUrlPreview;
   @override
@@ -743,13 +743,13 @@ class _$ApiMovieImpl implements _ApiMovie {
   @override
   final String? logoUrl;
   @override
-  final int reviewsCount;
+  final int? reviewsCount;
   @override
   final double? ratingGoodReview;
   @override
   final int? ratingGoodReviewVoteCount;
   @override
-  final double? ratingKinopoisk;
+  final double ratingKinopoisk;
   @override
   final int? ratingKinopoiskVoteCount;
   @override
@@ -783,7 +783,7 @@ class _$ApiMovieImpl implements _ApiMovie {
   @override
   final String? editorAnnotation;
   @override
-  final bool isTicketsAvailable;
+  final bool? isTicketsAvailable;
   @override
   final String? productionStatus;
   @override
@@ -797,21 +797,25 @@ class _$ApiMovieImpl implements _ApiMovie {
   @override
   final bool? has3D;
   @override
-  final DateTime lastSync;
-  final List<Country> _countries;
+  final DateTime? lastSync;
+  final List<Country>? _countries;
   @override
-  List<Country> get countries {
+  List<Country>? get countries {
+    final value = _countries;
+    if (value == null) return null;
     if (_countries is EqualUnmodifiableListView) return _countries;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_countries);
+    return EqualUnmodifiableListView(value);
   }
 
-  final List<Genre> _genres;
+  final List<Genre>? _genres;
   @override
-  List<Genre> get genres {
+  List<Genre>? get genres {
+    final value = _genres;
+    if (value == null) return null;
     if (_genres is EqualUnmodifiableListView) return _genres;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_genres);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
@@ -984,14 +988,14 @@ abstract class _ApiMovie implements ApiMovie {
       required final String? nameRu,
       required final String? nameEn,
       required final String? nameOriginal,
-      required final String posterUrl,
+      required final String? posterUrl,
       required final String posterUrlPreview,
       required final String? coverUrl,
       required final String? logoUrl,
-      required final int reviewsCount,
+      required final int? reviewsCount,
       required final double? ratingGoodReview,
       required final int? ratingGoodReviewVoteCount,
-      required final double? ratingKinopoisk,
+      required final double ratingKinopoisk,
       required final int? ratingKinopoiskVoteCount,
       required final double? ratingImdb,
       required final int? ratingImdbVoteCount,
@@ -1008,16 +1012,16 @@ abstract class _ApiMovie implements ApiMovie {
       required final String? description,
       required final String? shortDescription,
       required final String? editorAnnotation,
-      required final bool isTicketsAvailable,
+      required final bool? isTicketsAvailable,
       required final String? productionStatus,
       required final String? type,
       required final String? ratingMpaa,
       required final String? ratingAgeLimits,
       required final bool? hasImax,
       required final bool? has3D,
-      required final DateTime lastSync,
-      required final List<Country> countries,
-      required final List<Genre> genres,
+      required final DateTime? lastSync,
+      required final List<Country>? countries,
+      required final List<Genre>? genres,
       required final int? startYear,
       required final int? endYear,
       required final bool? serial,
@@ -1040,7 +1044,7 @@ abstract class _ApiMovie implements ApiMovie {
   @override
   String? get nameOriginal;
   @override
-  String get posterUrl;
+  String? get posterUrl;
   @override
   String get posterUrlPreview;
   @override
@@ -1048,13 +1052,13 @@ abstract class _ApiMovie implements ApiMovie {
   @override
   String? get logoUrl;
   @override
-  int get reviewsCount;
+  int? get reviewsCount;
   @override
   double? get ratingGoodReview;
   @override
   int? get ratingGoodReviewVoteCount;
   @override
-  double? get ratingKinopoisk;
+  double get ratingKinopoisk;
   @override
   int? get ratingKinopoiskVoteCount;
   @override
@@ -1088,7 +1092,7 @@ abstract class _ApiMovie implements ApiMovie {
   @override
   String? get editorAnnotation;
   @override
-  bool get isTicketsAvailable;
+  bool? get isTicketsAvailable;
   @override
   String? get productionStatus;
   @override
@@ -1102,11 +1106,11 @@ abstract class _ApiMovie implements ApiMovie {
   @override
   bool? get has3D;
   @override
-  DateTime get lastSync;
+  DateTime? get lastSync;
   @override
-  List<Country> get countries;
+  List<Country>? get countries;
   @override
-  List<Genre> get genres;
+  List<Genre>? get genres;
   @override
   int? get startYear;
   @override

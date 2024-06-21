@@ -4,7 +4,7 @@ import '../../data/api/model/movie/api_movie.dart';
 
 class Movie extends Equatable {
   final int kinopoiskId;
-  final double? ratingKinopoisk;
+  final double ratingKinopoisk;
   final String posterUrlPreview;
 
   const Movie({
@@ -12,6 +12,12 @@ class Movie extends Equatable {
     required this.ratingKinopoisk,
     required this.posterUrlPreview,
   });
+
+  factory Movie.fromApi(ApiMovie apiMovie) => Movie(
+        kinopoiskId: apiMovie.kinopoiskId,
+        ratingKinopoisk: apiMovie.ratingKinopoisk,
+        posterUrlPreview: apiMovie.posterUrlPreview,
+      );
 
   Movie copyWith({
     int? kinopoiskId,
@@ -22,12 +28,6 @@ class Movie extends Equatable {
         kinopoiskId: kinopoiskId ?? this.kinopoiskId,
         ratingKinopoisk: ratingKinopoisk ?? this.ratingKinopoisk,
         posterUrlPreview: posterUrlPreview ?? this.posterUrlPreview,
-      );
-
-  factory Movie.fromApi(ApiMovie apiMovie) => Movie(
-        kinopoiskId: apiMovie.kinopoiskId,
-        ratingKinopoisk: apiMovie.ratingKinopoisk,
-        posterUrlPreview: apiMovie.posterUrlPreview,
       );
 
   @override

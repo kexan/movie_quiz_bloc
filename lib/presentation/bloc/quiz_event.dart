@@ -5,7 +5,7 @@ sealed class QuizEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-final class Init extends QuizEvent {}
+final class QuizInit extends QuizEvent {}
 
 final class QuizEnded extends QuizEvent {}
 

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../bloc/quiz_bloc.dart';
+import 'package:movie_quiz_bloc/presentation/bloc/quiz_bloc.dart';
 
 class ResultDialog extends StatelessWidget {
   final int correctAnswers;
