@@ -7,16 +7,26 @@ import '../presentation/view/quiz.dart';
 
 class Application extends StatelessWidget {
   final MovieRepository repository;
+  final ThemeData lightTheme = ThemeData(
+    brightness: Brightness.light,
+    useMaterial3: true,
+    appBarTheme: const AppBarTheme(
+      color: Colors.blue,
+      iconTheme: IconThemeData(color: Colors.white),
+    ),
+    colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+  );
 
-  const Application({super.key, required this.repository});
+  Application({super.key, required this.repository});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<QuizBloc>(
       create: (_) => QuizBloc(repository)..add(QuizInit()),
-      child: const MaterialApp(
+      child: MaterialApp(
         title: "Quiz",
-        home: Quiz(),
+        home: const Quiz(),
+        theme: lightTheme,
       ),
     );
   }

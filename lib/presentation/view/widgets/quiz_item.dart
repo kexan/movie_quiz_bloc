@@ -1,6 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 import '../../../domain/model/movie.dart';
 import '../../bloc/quiz_bloc.dart';
@@ -19,28 +19,26 @@ class QuizItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          MoviePhoto(urlPreview: movie.posterUrlPreview),
-          Text(
-            "Рейтинг этого фильма больше чем $ratingToCompare?",
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w500,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const ButtonsRow()
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        MoviePhoto(urlPreview: movie.posterUrlPreview),
+        Text(
+          "Рейтинг этого фильма больше чем $ratingToCompare?",
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(fontSize: 24, fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,
+        ),
+        const ButtonsRow()
+      ],
     );
   }
 }
 
-class MoviePhoto extends StatefulWidget {
+class MoviePhoto extends StatelessWidget {
   final String urlPreview;
 
   const MoviePhoto({
@@ -49,32 +47,22 @@ class MoviePhoto extends StatefulWidget {
   });
 
   @override
-  createState() => _MoviePhotoState();
-}
-
-class _MoviePhotoState extends State<MoviePhoto> {
-  Color borderColor = Colors.transparent;
-
-  @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 10,
       margin: const EdgeInsets.all(30),
       shape: RoundedRectangleBorder(
-        side: BorderSide(
-          strokeAlign: BorderSide.strokeAlignOutside,
-          color: borderColor,
-          width: 10,
-        ),
         borderRadius: BorderRadius.circular(24),
       ),
       child: SizedBox(
-        height: 450,
+        height: 500,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(24),
-          child: FadeInImage.memoryNetwork(
-            placeholder: kTransparentImage,
-            image: widget.urlPreview,
+          child: CachedNetworkImage(
+            imageUrl: urlPreview,
+            placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
+            fit: BoxFit.cover,
           ),
         ),
       ),
@@ -137,38 +125,8 @@ class ButtonWidget extends StatelessWidget {
           elevation: 5,
         ),
         onPressed: onPressed,
-        child: Text(
-          text,
-          style: const TextStyle(color: Colors.white),
-        ),
+        child: Text(text),
       ),
     );
   }
 }
-
-// @override
-// void didChangeDependencies() {
-//   super.didChangeDependencies();
-//   final currentState = context.watch<QuizBloc>().state;
-//
-//   switch (currentState.status) {
-//     case QuizStatus.yesButtonPressed:
-//       _startAnimation(Colors.green);
-//     case QuizStatus.noButtonPressed:
-//       _startAnimation(Colors.red);
-//     default:
-//       _startAnimation(Colors.transparent);
-//   }
-// }
-//
-// void _startAnimation(Color color) {
-//   setState(() {
-//     borderColor = color;
-//   });
-//
-//   Future.delayed(const Duration(milliseconds: 400), () {
-//     setState(() {
-//       borderColor = Colors.transparent;
-//     });
-//   });
-// }

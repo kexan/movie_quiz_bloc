@@ -51,10 +51,16 @@ _buildBody() {
           correctAnswers: state.correctAnswers,
         );
       }
+      if (state is QuizErrorState) {
+        return Center(
+          child: Text(state.message),
+        );
+      }
       return Container(); //заглушка
     },
     buildWhen: (state, currentState) {
       return currentState is! QuizEndedState;
+      //это чтобы при показе диалога уи не перерисовывалось и диалог отображался "поверх"
     },
   );
 }
