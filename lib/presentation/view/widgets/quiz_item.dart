@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_quiz_bloc/presentation/view/widgets/result_dialog.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import '../../../domain/model/movie.dart';
@@ -117,46 +116,59 @@ class ButtonsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        SizedBox(
-          height: 60,
-          width: 150,
-          child: FilledButton(
-            style: FilledButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              backgroundColor: Colors.red,
-              elevation: 5,
+    return BlocBuilder<QuizBloc, QuizState>(
+      builder: (context, state) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ButtonWidget(
+              onPressed: () => context.read<QuizBloc>().add(NoButtonPressed()),
+              text: "Нет",
+              color: Colors.red,
             ),
-            onPressed: () => BlocProvider.of<QuizBloc>(context).add(NoButtonPressed()),
-            child: const Text(
-              "Нет",
-              style: TextStyle(color: Colors.white),
+            ButtonWidget(
+              onPressed: () => context.read<QuizBloc>().add(YesButtonPressed()),
+              text: "Да",
+              color: Colors.green,
             ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class ButtonWidget extends StatelessWidget {
+  final VoidCallback onPressed;
+  final String text;
+  final Color color;
+
+  const ButtonWidget({
+    super.key,
+    required this.onPressed,
+    required this.text,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 60,
+      width: 150,
+      child: FilledButton(
+        style: FilledButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
           ),
+          backgroundColor: color,
+          elevation: 5,
         ),
-        SizedBox(
-          height: 60,
-          width: 150,
-          child: FilledButton(
-            style: FilledButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              backgroundColor: Colors.green,
-              elevation: 5,
-            ),
-            onPressed: () => BlocProvider.of<QuizBloc>(context).add(YesButtonPressed()),
-            child: const Text(
-              "Да",
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
+        onPressed: onPressed,
+        child: Text(
+          text,
+          style: const TextStyle(color: Colors.white),
         ),
-      ],
+      ),
     );
   }
 }
