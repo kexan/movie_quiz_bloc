@@ -80,33 +80,6 @@ class _MoviePhotoState extends State<MoviePhoto> {
       ),
     );
   }
-
-  // @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-  //   final currentState = context.watch<QuizBloc>().state;
-  //
-  //   switch (currentState.status) {
-  //     case QuizStatus.yesButtonPressed:
-  //       _startAnimation(Colors.green);
-  //     case QuizStatus.noButtonPressed:
-  //       _startAnimation(Colors.red);
-  //     default:
-  //       _startAnimation(Colors.transparent);
-  //   }
-  // }
-
-  void _startAnimation(Color color) {
-    setState(() {
-      borderColor = color;
-    });
-
-    Future.delayed(const Duration(milliseconds: 400), () {
-      setState(() {
-        borderColor = Colors.transparent;
-      });
-    });
-  }
 }
 
 class ButtonsRow extends StatelessWidget {
@@ -172,3 +145,30 @@ class ButtonWidget extends StatelessWidget {
     );
   }
 }
+
+// @override
+// void didChangeDependencies() {
+//   super.didChangeDependencies();
+//   final currentState = context.watch<QuizBloc>().state;
+//
+//   switch (currentState.status) {
+//     case QuizStatus.yesButtonPressed:
+//       _startAnimation(Colors.green);
+//     case QuizStatus.noButtonPressed:
+//       _startAnimation(Colors.red);
+//     default:
+//       _startAnimation(Colors.transparent);
+//   }
+// }
+//
+// void _startAnimation(Color color) {
+//   setState(() {
+//     borderColor = color;
+//   });
+//
+//   Future.delayed(const Duration(milliseconds: 400), () {
+//     setState(() {
+//       borderColor = Colors.transparent;
+//     });
+//   });
+// }

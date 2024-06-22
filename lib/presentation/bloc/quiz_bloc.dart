@@ -1,14 +1,13 @@
+import "dart:math";
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:movie_quiz_bloc/domain/repository/movie_repository.dart';
-import "dart:math";
 
 import '../../domain/model/movie.dart';
 import '../../domain/model/movie_list.dart';
 
 part 'quiz_event.dart';
-
 part 'quiz_state.dart';
 
 class QuizBloc extends Bloc<QuizEvent, QuizState> {
