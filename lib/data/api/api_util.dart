@@ -8,7 +8,6 @@ class ApiUtil {
 
   Future<MovieList> getMovieList({required int page}) async {
     final result = await dataSource.getMovieListFromApi(page: page);
-    print(result);
     return MovieList.fromApi(result);
   }
 }

@@ -19,17 +19,6 @@ class Movie extends Equatable {
         posterUrlPreview: apiMovie.posterUrlPreview,
       );
 
-  Movie copyWith({
-    int? kinopoiskId,
-    double? ratingKinopoisk,
-    String? posterUrlPreview,
-  }) =>
-      Movie(
-        kinopoiskId: kinopoiskId ?? this.kinopoiskId,
-        ratingKinopoisk: ratingKinopoisk ?? this.ratingKinopoisk,
-        posterUrlPreview: posterUrlPreview ?? this.posterUrlPreview,
-      );
-
   @override
   List<Object?> get props => [kinopoiskId];
 }

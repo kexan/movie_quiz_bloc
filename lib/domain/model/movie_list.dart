@@ -1,8 +1,9 @@
+import 'package:equatable/equatable.dart';
 import 'package:movie_quiz_bloc/domain/model/movie.dart';
 
 import '../../data/api/model/movielist/api_movie_list.dart';
 
-class MovieList {
+class MovieList extends Equatable {
   final int totalPages;
   final List<Movie> movies;
 
@@ -13,17 +14,9 @@ class MovieList {
 
   factory MovieList.fromApi(ApiMovieList apiMovieList) => MovieList(
         totalPages: apiMovieList.totalPages,
-        movies: apiMovieList.items
-            .map((apiMovie) => Movie.fromApi(apiMovie))
-            .toList(),
+        movies: apiMovieList.items.map((apiMovie) => Movie.fromApi(apiMovie)).toList(),
       );
 
-  MovieList copyWith({
-    int? totalPages,
-    List<Movie>? movies,
-  }) =>
-      MovieList(
-        totalPages: totalPages ?? this.totalPages,
-        movies: movies ?? this.movies,
-      );
+  @override
+  List<Object?> get props => [movies];
 }

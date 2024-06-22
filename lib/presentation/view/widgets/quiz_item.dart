@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_quiz_bloc/domain/model/movie_list.dart';
+import 'package:movie_quiz_bloc/presentation/view/widgets/result_dialog.dart';
 import 'package:transparent_image/transparent_image.dart';
 
+import '../../../domain/model/movie.dart';
 import '../../bloc/quiz_bloc.dart';
 
 class QuizItem extends StatelessWidget {
-  final MovieList movieList;
+  final Movie movie;
   final int ratingToCompare;
   final int correctAnswers;
 
   const QuizItem({
     super.key,
-    required this.movieList,
+    required this.movie,
     required this.ratingToCompare,
     required this.correctAnswers,
   });
@@ -24,7 +25,7 @@ class QuizItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          MoviePhoto(urlPreview: movieList.movies[0].posterUrlPreview),
+          MoviePhoto(urlPreview: movie.posterUrlPreview),
           Text(
             "Рейтинг этого фильма больше чем $ratingToCompare?",
             style: const TextStyle(
@@ -130,8 +131,7 @@ class ButtonsRow extends StatelessWidget {
               backgroundColor: Colors.red,
               elevation: 5,
             ),
-            onPressed: () =>
-                BlocProvider.of<QuizBloc>(context).add(NoButtonPressed()),
+            onPressed: () => BlocProvider.of<QuizBloc>(context).add(NoButtonPressed()),
             child: const Text(
               "Нет",
               style: TextStyle(color: Colors.white),
@@ -149,8 +149,7 @@ class ButtonsRow extends StatelessWidget {
               backgroundColor: Colors.green,
               elevation: 5,
             ),
-            onPressed: () =>
-                BlocProvider.of<QuizBloc>(context).add(YesButtonPressed()),
+            onPressed: () => BlocProvider.of<QuizBloc>(context).add(YesButtonPressed()),
             child: const Text(
               "Да",
               style: TextStyle(color: Colors.white),

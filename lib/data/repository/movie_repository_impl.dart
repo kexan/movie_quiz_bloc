@@ -12,8 +12,18 @@ class MovieRepositoryImpl implements MovieRepository {
   MovieRepositoryImpl(this.apiUtil);
 
   @override
-  Future<MovieList> getMovieList({required int page}) {
+  Future<MovieList> getMovieListFromPage({required int page}) {
     return apiUtil.getMovieList(page: page);
+  }
+
+  @override
+  Future<MovieList> prepareMovieList() async {
+    final movieList = await getMovieListFromPage(page: 1);
+    for (var i = 2; i <= movieList.totalPages; i++) {
+      final _ = await getMovieListFromPage(page: i);
+      movieList.movies.addAll(_.movies);
+    }
+    return movieList;
   }
 
   @override
