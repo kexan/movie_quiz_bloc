@@ -23,7 +23,11 @@ _buildBody() {
         showDialog(
           context: context,
           builder: (BuildContext context) {
-            return ResultDialog(correctAnswers: state.correctAnswers);
+            return ResultDialog(
+                onPressed: () {
+                  context.read<QuizBloc>().add(RestartButtonPressed());
+                },
+                correctAnswers: state.correctAnswers);
           },
           barrierDismissible: false,
         );

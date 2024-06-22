@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_quiz_bloc/presentation/bloc/quiz_bloc.dart';
 
 class ResultDialog extends StatelessWidget {
+  final VoidCallback onPressed;
   final int correctAnswers;
 
-  const ResultDialog({super.key, required this.correctAnswers});
+  const ResultDialog({
+    super.key,
+    required this.onPressed,
+    required this.correctAnswers,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +18,7 @@ class ResultDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () {
-            BlocProvider.of<QuizBloc>(context).add(
-              RestartButtonPressed(),
-            );
+            onPressed();
             Navigator.of(context).pop();
           },
           child: const Text("Можем повторить"),
