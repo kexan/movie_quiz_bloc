@@ -5,14 +5,12 @@ import 'package:equatable/equatable.dart';
 import 'package:movie_quiz_bloc/domain/repository/movie_repository.dart';
 
 import '../../domain/model/movie.dart';
-import '../../domain/model/movie_list.dart';
 
 part 'quiz_event.dart';
 part 'quiz_state.dart';
 
 class QuizBloc extends Bloc<QuizEvent, QuizState> {
   final MovieRepository repository;
-  late final MovieList _movieList;
   int currentRound = 1;
 
   QuizBloc(this.repository) : super(QuizState()) {
@@ -91,11 +89,11 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
   }
 
   Movie _getRandomMovie() {
-    return repository.getRandomMovieFromList(movieList: _movieList);
+    return repository.getRandomMovieFromList();
   }
 
   Future<void> _prepareMovieList() async {
-    _movieList = await repository.prepareMovieList();
+    await repository.prepareMovieList();
   }
 
   int _getRandomNum(int min, int max) => min + Random().nextInt(max - min);
