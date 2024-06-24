@@ -49,8 +49,8 @@ class MovieRepositoryImpl implements MovieRepository {
 
     if (hiveMovieList != null) {
       return hiveMovieList.movies[Random().nextInt(hiveMovieList.movies.length)];
+    } else {
+      throw Exception('Movie list is not prepared.');
     }
-
-    throw Exception('Movie list is not prepared.');
   }
 }
