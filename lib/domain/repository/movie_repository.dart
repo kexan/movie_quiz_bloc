@@ -4,7 +4,9 @@ import '../model/movie_list.dart';
 abstract interface class MovieRepository {
   Future<MovieList> getMovieListFromPage({required int page});
 
-  Future<MovieList> prepareMovieList();
+  Future<MovieList> fetchMoviesFromAllPages();
 
-  Movie getRandomMovieFromList({required MovieList movieList});
+  Future<void> prepareMovieList();
+
+  Movie getRandomMovieFromList();
 }
