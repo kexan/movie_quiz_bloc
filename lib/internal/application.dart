@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_quiz_bloc/domain/repository/movie_repository.dart';
+import 'package:movie_quiz_bloc/internal/app_router.dart';
 import 'package:movie_quiz_bloc/presentation/bloc/quiz_bloc.dart';
-
-import '../presentation/view/quiz.dart';
 
 class Application extends StatelessWidget {
   final MovieRepository repository;
@@ -23,10 +22,12 @@ class Application extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<QuizBloc>(
       create: (_) => QuizBloc(repository)..add(QuizInit()),
-      child: MaterialApp(
+      child: MaterialApp.router(
         title: "Quiz",
-        home: const Quiz(),
         theme: lightTheme,
+        routeInformationParser: AppRouter.router.routeInformationParser,
+        routeInformationProvider: AppRouter.router.routeInformationProvider,
+        routerDelegate: AppRouter.router.routerDelegate,
       ),
     );
   }
