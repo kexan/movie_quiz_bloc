@@ -20,19 +20,28 @@ class MovieAdapter extends TypeAdapter<Movie> {
       kinopoiskId: fields[0] as int,
       ratingKinopoisk: fields[1] as double,
       posterUrlPreview: fields[2] as String,
+      nameRu: fields[3] as String?,
+      year: fields[4] as int?,
+      description: fields[5] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Movie obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.kinopoiskId)
       ..writeByte(1)
       ..write(obj.ratingKinopoisk)
       ..writeByte(2)
-      ..write(obj.posterUrlPreview);
+      ..write(obj.posterUrlPreview)
+      ..writeByte(3)
+      ..write(obj.nameRu)
+      ..writeByte(4)
+      ..write(obj.year)
+      ..writeByte(5)
+      ..write(obj.description);
   }
 
   @override

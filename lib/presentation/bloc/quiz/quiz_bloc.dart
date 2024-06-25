@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:movie_quiz_bloc/domain/repository/movie_repository.dart';
 
-import '../../domain/model/movie.dart';
+import '../../../domain/model/movie.dart';
 
 part 'quiz_event.dart';
 part 'quiz_state.dart';
@@ -13,7 +13,7 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
   final MovieRepository repository;
   int currentRound = 1;
 
-  QuizBloc(this.repository) : super(QuizState()) {
+  QuizBloc(this.repository) : super(QuizInitialState()) {
     on<QuizInit>(_onInit);
     on<YesButtonPressed>(_onYesButtonPressed);
     on<NoButtonPressed>(_onNoButtonPressed);

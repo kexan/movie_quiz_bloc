@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_quiz_bloc/domain/repository/movie_repository.dart';
 import 'package:movie_quiz_bloc/internal/app_router.dart';
-import 'package:movie_quiz_bloc/presentation/bloc/quiz_bloc.dart';
+import 'package:movie_quiz_bloc/presentation/bloc/quiz/quiz_bloc.dart';
 
 class Application extends StatelessWidget {
   final MovieRepository repository;

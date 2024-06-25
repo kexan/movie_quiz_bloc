@@ -1,15 +1,15 @@
 part of 'quiz_bloc.dart';
 
-class QuizState extends Equatable {
+sealed class QuizState extends Equatable {
   @override
   List<Object> get props => [];
 }
 
-class QuizInitialState extends QuizState {}
+final class QuizInitialState extends QuizState {}
 
-class QuizLoadingState extends QuizState {}
+final class QuizLoadingState extends QuizState {}
 
-class QuizFulfilledState extends QuizState {
+final class QuizFulfilledState extends QuizState {
   final Movie movie;
   final int ratingToCompare;
   final int correctAnswers;
@@ -19,6 +19,9 @@ class QuizFulfilledState extends QuizState {
       kinopoiskId: 1,
       ratingKinopoisk: 1,
       posterUrlPreview: "image URL",
+      nameRu: "name",
+      year: 1,
+      description: "description",
     ),
     this.ratingToCompare = 0,
     this.correctAnswers = 0,
@@ -28,7 +31,7 @@ class QuizFulfilledState extends QuizState {
   List<Object> get props => [movie];
 }
 
-class QuizEndedState extends QuizState {
+final class QuizEndedState extends QuizState {
   final int correctAnswers;
 
   QuizEndedState({required this.correctAnswers});
@@ -37,7 +40,7 @@ class QuizEndedState extends QuizState {
   List<Object> get props => [correctAnswers];
 }
 
-class QuizErrorState extends QuizState {
+final class QuizErrorState extends QuizState {
   final String message;
 
   QuizErrorState(this.message);

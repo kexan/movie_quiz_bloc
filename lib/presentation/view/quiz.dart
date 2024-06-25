@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_quiz_bloc/presentation/bloc/quiz_bloc.dart';
+import 'package:movie_quiz_bloc/presentation/bloc/quiz/quiz_bloc.dart';
 import 'package:movie_quiz_bloc/presentation/view/widgets/result_dialog.dart';
 
 import 'widgets/quiz_item.dart';
