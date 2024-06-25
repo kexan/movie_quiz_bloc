@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../bloc/quiz_bloc.dart';
+import '../../bloc/quiz/quiz_bloc.dart';
 
 class Button extends StatelessWidget {
   final VoidCallback onPressed;

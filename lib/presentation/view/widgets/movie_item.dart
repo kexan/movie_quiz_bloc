@@ -1,34 +1,42 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_quiz_bloc/presentation/view/widgets/movie_photo.dart';
+
+import '../../../domain/model/movie.dart';
 
 class MovieItem extends StatelessWidget {
-  final String urlPreview;
+  final Movie movie;
 
-  const MovieItem({
-    super.key,
-    required this.urlPreview,
-  });
+  const MovieItem({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 10,
-      margin: const EdgeInsets.all(30),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24),
-      ),
-      child: SizedBox(
-        height: 500,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(24),
-          child: CachedNetworkImage(
-            imageUrl: urlPreview,
-            placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-            errorWidget: (context, url, error) => const Icon(Icons.error),
-            fit: BoxFit.cover,
+    return Column(
+      children: [
+        MoviePhoto(
+          height: 450,
+          urlPreview: movie.posterUrlPreview,
+          onTap: () {},
+        ),
+        Text(
+          movie.nameRu ?? "У фильма нет названия на русском",
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+        Text(
+          movie.year.toString(),
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+        Expanded(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical, // Прокрутка по вертикали
+            child: Container(
+                padding: const EdgeInsets.all(16),
+                child: Text(
+                  movie.description ?? "У фильма нет описания",
+                  style: Theme.of(context).textTheme.bodyLarge,
+                )),
           ),
         ),
-      ),
+      ],
     );
   }
 }

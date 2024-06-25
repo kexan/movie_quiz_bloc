@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../domain/model/movie.dart';
 import 'button.dart';
-import 'movie_item.dart';
+import 'movie_photo.dart';
 
 class QuizItem extends StatelessWidget {
   final Movie movie;
@@ -22,7 +23,12 @@ class QuizItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        MovieItem(urlPreview: movie.posterUrlPreview),
+        MoviePhoto(
+            height: 500,
+            urlPreview: movie.posterUrlPreview,
+            onTap: () {
+              context.push('/movie');
+            }),
         Text(
           "Рейтинг этого фильма больше чем $ratingToCompare?",
           style: Theme.of(context)
@@ -36,5 +42,3 @@ class QuizItem extends StatelessWidget {
     );
   }
 }
-
-
