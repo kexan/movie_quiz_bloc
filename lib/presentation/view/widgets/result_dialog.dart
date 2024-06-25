@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ResultDialog extends StatelessWidget {
   final VoidCallback onPressed;
@@ -19,7 +20,7 @@ class ResultDialog extends StatelessWidget {
         TextButton(
           onPressed: () {
             onPressed();
-            Navigator.of(context).pop();
+            context.pop();
           },
           child: const Text("Можем повторить"),
         ),
